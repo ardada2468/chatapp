@@ -6,6 +6,7 @@ import 'firebase/compat/firestore'; //v9
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/compat/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
+import ReactTooltip from 'react-tooltip';
 
 firebase.initializeApp({
   apiKey: "AIzaSyBHQI6k3V6JOk3vR_Ifal9iaRvz2n9M8vw",
@@ -80,6 +81,7 @@ firebase.initializeApp({
   
       await messagesRef.add({
         text: formValue,
+        username: auth.currentUser.displayName,
         createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         uid,
         photoURL
@@ -92,7 +94,7 @@ firebase.initializeApp({
     return (<>
       <main>
   
-        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} username={auth.currentUser.displayName} date={msg.createdAt}/>)}
   
         <span ref={dummy}></span>
   
@@ -110,17 +112,24 @@ firebase.initializeApp({
   
   
   function ChatMessage(props) {
-    const { text, uid, photoURL } = props.message;
+    const { text, uid, photoURL, username, createdAt } = props.message;
   
     const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
   
     return (<>
-      <div className={`message ${messageClass}`}>
-        <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
-        <p>{text}</p>
-      </div>
+        <div className={`message ${messageClass}`}>
+          <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
+          <p data-tip={username + " | " +  firebase.firestore.Timestamp.fromDate(new Date()).toDate().toLocaleString()}>{text}</p>
+
+          <ReactTooltip />
+        </div>
     </>)
   }
   
+  function getDate(date){
+    const  Date = new Date(date);
+    return Date.toLocaleString('en-US')
+
+  }
   
   export default App;

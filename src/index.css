@@ -8,6 +8,13 @@ body {
   margin: 0 auto;
 }
 
+h6{
+  color: white;
+  align-self: flex-end;
+  margin: 10px;
+  padding: 10px;
+}
+
 .App header {
   background-color: #181717;
   height: 10vh;
