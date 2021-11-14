@@ -8,14 +8,8 @@ import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/compat/au
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ReactTooltip from 'react-tooltip';
 
-firebase.initializeApp({
-  apiKey: "AIzaSyBHQI6k3V6JOk3vR_Ifal9iaRvz2n9M8vw",
-  authDomain: "learnprogram-bd685.firebaseapp.com",
-  projectId: "learnprogram-bd685",
-  storageBucket: "learnprogram-bd685.appspot.com",
-  messagingSenderId: "1075066655300",
-  appId: "1:1075066655300:web:951b9e2fa4cf7bba536211",
-  measurementId: "G-GETW06R5QK"});
+//Put your auth key here
+firebase.initializeApp({place your key here});
 
   const firestore = firebase.firestore();
   // const analytics = firebase.analytics();
